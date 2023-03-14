@@ -1,2 +1,22 @@
 #!/bin/bash
-tr `echo {a..z} | tr -d ' '` `echo {n..z} $(echo {a..m}) | tr -d ' '` | tr `echo {A..Z} | tr -d ' '` `echo {N..Z} $(echo {A..M}) | tr -d ' '` 
+
+# Get the mode (encode or decode) and text from command line arguments
+mode=$1
+text=$2
+
+if [ "$mode" = "encode" ]; then
+  # Encode the text using the rot13 encryption
+  encoded=$(echo "$text" | tr 'A-Za-z' 'N-ZA-Mn-za-m')
+  # Print the encoded text
+  echo $encoded
+elif [ "$mode" = "decode" ]; then
+  # Decode the text using the rot13 encryption
+  decoded=$(echo "$text" | tr 'N-ZA-Mn-za-m' 'A-Za-z')
+  # Print the decoded text
+  echo $decoded
+else
+  # Invalid mode
+  echo "Invalid mode. Use 'encode' or 'decode'."
+fi
+
+
